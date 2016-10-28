@@ -2,8 +2,8 @@
 disp('Aufgabe 1a')
 t = 1:1/128:4;
 
-f_1 = f1(t)
-f_2 = f2(t)
+f_1 = f1(t);
+f_2 = f2(t);
 
 %plot(t,f_1)
 %plot(t,f_2)
@@ -32,8 +32,8 @@ useableResultRange = 1:windowSize/2;
  
 ResultDB = 20 * log10(fftResultAbs / (windowSize/2));
  
-%plot(1:fs/windowSize:fs/2, ResultDB(useableResultRange));
-%plot(1:fs/windowSize:fs/2,  fftResultAbs(useableResultRange));
+plot(1:fs/windowSize:fs/2, ResultDB(useableResultRange));
+plot(1:fs/windowSize:fs/2,  fftResultAbs(useableResultRange));
 
 %--- plot f_2 ---%
 fftVector = f_2(1:windowSize);
@@ -45,8 +45,8 @@ useableResultRange = 1:windowSize/2;
  
 ResultDB = 20 * log10(fftResultAbs / (windowSize/2));
  
-%plot(1:fs/windowSize:fs/2, ResultDB(useableResultRange));
-%plot(1:fs/windowSize:fs/2,  fftResultAbs(useableResultRange));
+plot(1:fs/windowSize:fs/2, ResultDB(useableResultRange));
+plot(1:fs/windowSize:fs/2,  fftResultAbs(useableResultRange));
 
 %---2a---%
 
@@ -69,11 +69,11 @@ besterSchwellwert = -1;
 set(gca, 'YTick', 0:0.01:0.07);
 set(gca, 'YTickLabel', 0:0.01:0.07);
 for schwellwert = muster
-        daten_links = wahrscheinlichkeiten(1:schwellwert);
-        daten_rechts = wahrscheinlichkeiten(schwellwert:maxSize);
-        
-        indizes_rechts = muster(schwellwert :maxSize);
-        indizes_links = muster(1:schwellwert);
+    daten_links = wahrscheinlichkeiten(1:schwellwert);
+    daten_rechts = wahrscheinlichkeiten(schwellwert:maxSize);
+
+    indizes_rechts = muster(schwellwert :maxSize);
+    indizes_links = muster(1:schwellwert);
 
     n = size(indizes_links,2);
 
@@ -102,28 +102,28 @@ for schwellwert = muster
     gesamtmasse = sum(wahrscheinlichkeiten);
 
     alpha = 0;
-    masse_links
-    masse_rechts
     if(masse_links ~= 0)
         alpha = gesamtmasse * masse_links;
     end
-    alpha
     
     approxWarscheinlichkeiten = alpha * normpdf(muster, erwartungswert_1, varianz_1) + (1-alpha)*normpdf(muster,erwartungswert_2, varianz_2);
     hold off;
-    plot(muster, approxWarscheinlichkeiten);
+    plot(0:29, approxWarscheinlichkeiten);
     ylim([0 0.07]);
     hold on;
-    plot(muster, wahrscheinlichkeiten);
+    plot(0:29, wahrscheinlichkeiten);
     error = 0;
     for index = muster
         error = error + abs(wahrscheinlichkeiten(index)-approxWarscheinlichkeiten(index));
     end
 
+    schwellwert-1
+    error
+    
     errors(schwellwert) = error;
     if error < minError
         minError = error;
-        besterSchwellwert = schwellwert;
+        besterSchwellwert = schwellwert-1;
     end
 end
 
