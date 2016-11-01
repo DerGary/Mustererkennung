@@ -10,10 +10,11 @@ f_2 = f2(t);
 
 %---1b---%
 disp('Aufgabe 1b')
+% Siehe Blatt3_1b.m
 
+%{
 fs = 128;
 t = 0:1/fs:1;
-nf = 512;
 
 %set(gca, 'XTick', 0:8:fs/2);
 %set(gca, 'XTickLabel', 0:8:fs/2);
@@ -24,18 +25,20 @@ x = 0:1/fs:1;
 
 %--- plot f_1 ---%
 fftVector = f_1(1:windowSize);
+plot(fftVector);
 fftResult = fft(fftVector);
-
+plot(fftResult);
 fftResultAbs = abs(fftResult);
- 
+plot(fftResultAbs)
 useableResultRange = 1:windowSize/2;
  
 ResultDB = 20 * log10(fftResultAbs / (windowSize/2));
  
 plot(1:fs/windowSize:fs/2, ResultDB(useableResultRange));
-plot(1:fs/windowSize:fs/2,  fftResultAbs(useableResultRange));
+%plot(1:fs/windowSize:fs/2,  fftResultAbs(useableResultRange));
 
 %--- plot f_2 ---%
+
 fftVector = f_2(1:windowSize);
 fftResult = fft(fftVector);
 
@@ -47,6 +50,7 @@ ResultDB = 20 * log10(fftResultAbs / (windowSize/2));
  
 plot(1:fs/windowSize:fs/2, ResultDB(useableResultRange));
 plot(1:fs/windowSize:fs/2,  fftResultAbs(useableResultRange));
+%}
 
 %---2a---%
 
@@ -129,6 +133,7 @@ end
 
 minError
 besterSchwellwert
+
 
 
 
