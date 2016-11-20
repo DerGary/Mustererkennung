@@ -3,7 +3,21 @@ g2 = (1/16) * [1,2,1;2,4,2;1,2,1];
 gsx = [1,0,-1;2,0,-2;1,0,-1];
 gsy = [1,2,1;0,0,0;-1,-2,-1];
 
-%---A1---%
+%---A1VonHand---%
+
+outputImg = ImageConvLong(imread('lena.png'),g1);
+imwrite(outputImg,'outputs/lena_outputHandmade_g1.png')
+
+outputImg = ImageConvLong(imread('lena.png'),g2);
+imwrite(outputImg,'outputs/lena_outputHandmade_g2.png')
+
+outputImg = ImageConvLong(imread('lena.png'),gsx);
+imwrite(outputImg,'outputs/lena_outputHandmade_gsx.png')
+
+outputImg = ImageConvLong(imread('lena.png'),gsy);
+imwrite(outputImg,'outputs/lena_outputHandmade_gsy.png')
+
+%---A1Im---%
 
 outputImg = ImageConv(imread('lena.png'),g1);
 imwrite(outputImg,'outputs/lena_output_g1.png')
