@@ -33,72 +33,75 @@ imwrite(outputImg8,'outputs/lena_output_gsy.png')
 
 %---DifferenzbilderA1---%
 
-diff = abs(outputImg1 - outputImg5);
+diff = outputImg1 - outputImg5;
 imwrite(diff,'outputs/diff_g1.png')
 
-diff = abs(outputImg2 - outputImg6);
+diff = outputImg2 - outputImg6;
 imwrite(diff,'outputs/diff_g2.png')
 
-diff = abs(outputImg3 - outputImg7);
+diff = outputImg3 - outputImg7;
 imwrite(diff,'outputs/diff_gsx.png')
 
-diff = abs(outputImg4 - outputImg8);
+diff = outputImg4 - outputImg8;
 imwrite(diff,'outputs/diff_gsy.png')
 
 %---A2VonHand---%
 
 outputImg1= rankoperation('Erosionsfilter', imread('lena.png'));
-imwrite(outputImg1,'outputs/lena_rank_erosion.png')
+imwrite(outputImg,'outputs/lena_rank_erosion.png')
 
 outputImg2= rankoperation('Dilatationsfilter', imread('lena.png'));
-imwrite(outputImg2,'outputs/lena_rank_dilatation.png')
+imwrite(outputImg,'outputs/lena_rank_dilatation.png')
 
 outputImg3= rankoperation('Medianfilter', imread('lena.png'));
-imwrite(outputImg3,'outputs/lena_rank_median.png')
+imwrite(outputImg,'outputs/lena_rank_median.png')
 
 outputImg4= rankoperation('Kantenfilter', imread('lena.png'));
-imwrite(outputImg4,'outputs/lena_rank_kanten.png')
+imwrite(outputImg,'outputs/lena_rank_kanten.png')
 
 %÷ffnung
 outputImg5= rankoperation('Dilatationsfilter', imread('outputs/lena_rank_erosion.png'));
-imwrite(outputImg5,'outputs/lena_rank_open.png')
+imwrite(outputImg,'outputs/lena_rank_open.png')
 
 %Schlieﬂung
 outputImg6= rankoperation('Erosionsfilter', imread('outputs/lena_rank_dilatation.png'));
-imwrite(outputImg6,'outputs/lena_rank_close.png')
+imwrite(outputImg,'outputs/lena_rank_close.png')
 
 %---A2IM---%
 
 outputImg7= rankoperationIm('imerode', imread('lena.png'));
-imwrite(outputImg7,'outputs/lenna_rankIm_erosion.png')
+imwrite(outputImg,'outputs/lenna_rankIm_erosion.png')
 
 outputImg8= rankoperationIm('imdilate', imread('lena.png'));
-imwrite(outputImg8,'outputs/lenna_rankIm_dilatation.png')
+imwrite(outputImg,'outputs/lenna_rankIm_dilatation.png')
 
-outputImg9= medfilt2(double(imread('lena.png'))/255,[7 7]);
-imwrite(outputImg9,'outputs/lenna_rankIm_median.png')
+outputImg9= medfilt2(imread('lena.png'),[7 7]);
+imwrite(outputImg,'outputs/lenna_rankIm_median.png')
 
 %÷ffnung
 outputImg10= rankoperationIm('imopen', imread('lena.png'));
-imwrite(outputImg10,'outputs/lenna_rankIm_open.png')
+imwrite(outputImg,'outputs/lenna_rankIm_open.png')
 
 %Schlieﬂung
 outputImg11= rankoperationIm('imclose', imread('lena.png'));
-imwrite(outputImg11,'outputs/lenna_rankIm_close.png')
+imwrite(outputImg,'outputs/lenna_rankIm_close.png')
 
 %---DifferenzbilderA2---%
 
-diff = abs(outputImg1 - outputImg7);
-imwrite(diff,'outputs/diff_erosion.png')
+diff = outputImg1 - outputImg7;
+imwrite(diff,'outputs/diff_g1.png')
 
-diff = abs(outputImg2 - outputImg8);
-imwrite(diff,'outputs/diff_dilatation.png')
+diff = outputImg2 - outputImg8;
+imwrite(diff,'outputs/diff_g2.png')
 
-diff = abs(outputImg3 - outputImg9);
-imwrite(diff,'outputs/diff_median.png')
+diff = outputImg3 - outputImg9;
+imwrite(diff,'outputs/diff_gsx.png')
 
-diff = abs(outputImg5 - outputImg10);
-imwrite(diff,'outputs/diff_open.png')
+diff = outputImg4 - outputImg10;
+imwrite(diff,'outputs/diff_gsy.png')
 
-diff = abs(outputImg6 - outputImg11);
-imwrite(diff,'outputs/diff_close.png')
+diff = outputImg5 - outputImg11;
+imwrite(diff,'outputs/diff_gsy.png')
+
+diff = outputImg6 - outputImg12;
+imwrite(diff,'outputs/diff_gsy.png')
