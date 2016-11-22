@@ -6,7 +6,7 @@ function [ result ] = rankOpImage( image, NHOOD, rankOp )
     NhoodHalf   = (NHOOD-1)/2;
     NhoodSquare = NHOOD^2;
     
-    R = zeros(1, NhoodSquare);
+    %R = zeros(1, NhoodSquare);
     
     for i = 1:N
        for j = 1:M
@@ -14,9 +14,10 @@ function [ result ] = rankOpImage( image, NHOOD, rankOp )
                        max(1, j-NhoodHalf):min(M, j+NhoodHalf));
                                 
            x = sort(sub(:))';
-           R(1:NhoodSquare-length(x)) = 0;
-           R(NhoodSquare-length(x)+1:end) = x;
-           result(i,j) = rankOp(R);
+           % fill R with zeros
+           %R(1:NhoodSquare-length(x)) = 0;
+           %R(NhoodSquare-length(x)+1:end) = x;
+           result(i,j) = rankOp(x);
        end
     end         
 end
