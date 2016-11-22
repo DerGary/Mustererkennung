@@ -1,8 +1,6 @@
 function [ outputImg ] = rankoperation( hFunction, image )
-%UNTITLED3 Summary of this function goes here
-%   Detailed explanation goes here
-for i = 4:508 % ignore corners
-    for j = 4:508
+for i = 4:(size(image,1)-3) % ignore corners
+    for j = 4:(size(image,2)-3)
         temp = image(i-3:i+3,j-3:j+3);
         temp = reshape(temp,1,[]);
         temp = sort(temp);
@@ -10,7 +8,5 @@ for i = 4:508 % ignore corners
         outputImg(i-3:i+3,j-3:j+3) = h;
     end
 end
-
-
 end
 
