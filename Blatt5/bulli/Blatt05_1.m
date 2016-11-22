@@ -1,0 +1,33 @@
+close all;
+
+lena = double(rgb2gray(imread('Lenna_original.png')))/255;
+figure('Name', 'Orginal');
+imshow(lena);
+
+
+g1 = (1/9) * ones(3);
+g3 = (1/16) * [ 1 2 1
+                2 4 2
+                1 2 1 ];
+            
+gsx = [ 1 0 -1            
+        2 0 -2
+        1 0 -1];
+
+gsy = gsx';
+            
+g = gsx;
+            
+
+result = convoluteImage(lena, g, 1);
+
+figure('Name', 'Custom');
+imshow(result);
+
+figure('Name', 'Matlab');
+result2 = conv2(lena, g);
+imshow(result2);
+
+figure('Name', 'Diff');
+diff = result-result2;
+imshow(abs(result-result2));
