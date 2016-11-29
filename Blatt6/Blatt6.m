@@ -52,3 +52,25 @@ b = [
 [U,S,V]=svd(A,0);
 
 xSVD= V/S*U'*b
+
+
+%% Aufgabe 2 d %% 
+b = [ -2.1
+      -0.9
+      -0.6
+       0.6
+       0.9 ];
+   
+t = [ 1 3 4 6 7 ]';
+
+gamma = 0;
+
+A = [ ones(size(b))  t-gamma];
+
+x = A\b  % pseudo inv
+g = @(t) x(1) + x(2)*(t-gamma);
+
+plot(t, b, 'o');
+hold on
+plot(t, g(t));
+hold off
