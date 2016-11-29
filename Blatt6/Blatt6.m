@@ -19,11 +19,8 @@ U = A*V/S;
 A
 AErg = U*S*V'
 
-%% ---Aufgabe2b/c--- %%
-%A = [3 4;-2 3;5 -7];   %b
-A = [ 1  3
-      5  2
-      4 -3 ];     %c
+%% ---Aufgabe2b--- %%
+A = [ 3 4;-2 3;5 -7];   %b
 b = [  31
       -7.5
       -15.2 ];
@@ -36,7 +33,7 @@ xNormal= A\b
 K = cond(A)     % die numerische Lösung variiert um die k letzten Stellen von der exakten Lösung
                 % k = sigmaMax(A)/sigmaMin(A)
 
-%% 
+% ---Aufgabe2c--- % 
 A = [
     1  3
     5  2
@@ -52,6 +49,7 @@ b = [
 [U,S,V]=svd(A,0);
 
 xSVD= V/S*U'*b
+xNormal= A\b
 
 
 %% Aufgabe 2 d %% 
