@@ -1,16 +1,16 @@
 function [ a, error, prediction ] = customLPC( f, n, predictions )
-    f = f';
+    f = flip(f');
     for i = 1 : length(f)-(n)
-        F(i,:) = f(i:i+(n-1));
+        F(i,:) = f(i+1:i+n);
     end
-    a = F\f(1,n+1:end)';
+    a = F\f(1:end-n)';
     estimates = F*a;
-    error = mean(abs(f(n+1:end)-estimates'));
+    error = mean(abs(f(1:end-n)-estimates'));
     
     predictedf = f;
     for i = 1: predictions
-        predictedf = [predictedf predictedf(end-(n-1):end)*a];
+        predictedf = [predictedf(1:n)*a predictedf];
     end
-    prediction = predictedf;
+    prediction = flip(predictedf);
 end
 
