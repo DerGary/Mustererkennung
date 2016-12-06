@@ -15,7 +15,8 @@ hold on;
 plot(f2(1,:),f2(2,:),'o','Color',[1,0.0,0.0]);
 hold on;
 plot(f3(1,:),f3(2,:),'o','Color',[0,0.0,1.0]);
-legend('f_1','f_2','f_3');
+legend('f_1','f_2','f_3','Location','Southeast');
+title('Aufgabe 1');
 hold off
 %% ---Aufgabe2---%
 N = length(f_gesamt);
@@ -27,20 +28,23 @@ for i = 1:N
 end
 
 R = R/N;
-Q = R - m*m';
-[V,E] = eigs(Q,1);
-A = V(:,1)';
+Q1 = R - m*m';
+[V1,E1] = eigs(Q1,1);
+%A1 = V1(:,1)';
+A1 = [1;1]';
 
-c = A*f_gesamt;
-c1 = c(1:length(f1));
-c2 = c(length(f1)+1:length(f1)+length(f2));
-c3 = c(length(f1)+length(f2)+1:length(f1)+length(f2)+length(f3));
+c = A1*f_gesamt;
+c11 = A1*f1;
+c12 = A1*f2;
+c13 = A1*f3;
 subplot(2,2,2);
-plot(c1,'o','Color',[0,1.0,0.0]);
+plot(c11,'o','Color',[0,1.0,0.0]);
 hold on;
-plot(c2,'o','Color',[1,0.0,0.0]);
+plot(c12,'o','Color',[1,0.0,0.0]);
 hold on;
-plot(c3,'o','Color',[0,0.0,1.0]);
+plot(c13,'o','Color',[0,0.0,1.0]);
+hold off;
+title('Aufgabe 2');
 legend('\Omega_1','\Omega_2','\Omega_3');
 
 %% ---Aufgabe3---%
@@ -79,5 +83,42 @@ X = R1 + R2 + R3;
 C = ((m2*m1' + m1*m2')+(m3*m2'+m2*m3'));
 Q2 = (1/3) * X - (1/(3*(3-1))) * C;
 
+[V2,E2] = eigs(Q2,1);
+A2 = V2(:,1)';
 
+c21 = A2*f1;
+c22 = A2*f2;
+c23 = A2*f3;
 
+subplot(2,2,3);
+plot(c21,'o','Color',[0,1.0,0.0]);
+hold on;
+plot(c22,'o','Color',[1,0.0,0.0]);
+hold on;
+plot(c23,'o','Color',[0,0.0,1.0]);
+hold off;
+title('Aufgabe 3');
+legend('\Omega_1','\Omega_2','\Omega_3');
+%% ---Aufgabe4---%
+
+Q_1 = R1 - m1*m1';
+Q_2 = R2 - m2*m2';
+Q_3 = R3 - m3*m3';
+
+Q3 = (1/3)*(Q_1 + Q_2 + Q_3);
+[V3,E3] = eigs(Q3,1);
+A3 = V3(:,1)';
+
+c31 = A3*f1;
+c32 = A3*f2;
+c33 = A3*f3;
+
+subplot(2,2,4);
+plot(c31,'o','Color',[0,1.0,0.0]);
+hold on;
+plot(c32,'o','Color',[1,0.0,0.0]);
+hold on;
+plot(c33,'o','Color',[0,0.0,1.0]);
+hold off;
+title('Aufgabe 4');
+legend('\Omega_1','\Omega_2','\Omega_3');
