@@ -1,4 +1,4 @@
-function merkmale = findeMerkmale(input, methode)
+function [merkmale, A] = findeMerkmale(input, methode)
 
 if methode == 1    % PCA, Squared distance all to
     f_gesamt = [];
@@ -16,12 +16,11 @@ if methode == 1    % PCA, Squared distance all to
     R = R/N;
     Q1 = R - m*m';
     [V1,E1] = eigs(Q1,1);
-    A1 = V1(:,1)';
+    A = V1(:,1)';
     
     c = [];
     for(i = 1:size(input,3))
-    c(:,:,i) = A1 * input(:,:,i); 
-    hold on;
+    c(:,:,i) = A * input(:,:,i); 
     end
  
     merkmale = c;   % return
@@ -30,13 +29,13 @@ end
 if methode == 2    % Squared distance one to all
     f_gesamt = input;
     
-    dim = size(input,3);
+    numberOfClasses = size(input,3);
     
-    N = zeros(1,dim);
-    m = zeros(2,1,dim);
+    N = zeros(1,numberOfClasses);
+    m = zeros(2,1,numberOfClasses);
     
-    R = zeros(2,2,dim);
-    for i = 1:dim
+    R = zeros(2,2,numberOfClasses);
+    for i = 1:numberOfClasses
         N(i)= length(f_gesamt(:,:,i));
         m(:,i) = sum(f_gesamt(:,:,i),2)/N(i);
         R(:,:,i) = zeros(2,2);
@@ -44,7 +43,7 @@ if methode == 2    % Squared distance one to all
 
     for i = 1:length(N)
         for k = 1:N(i)
-            f_temp = f_gesamt(:,:,i)
+            f_temp = f_gesamt(:,:,i);
             f_new = f_temp(:,k) * f_temp(:,k)';
             R(:,:,i) = R(:,:,i) + f_new;
         end
@@ -54,12 +53,11 @@ if methode == 2    % Squared distance one to all
     Q = zeros(2,2);
     C = zeros(2,2);
     
-    syms l k
-    A = (1/dim)* sum(R,3);
-    B = (1/(dim*(dim-1)));
-    for k = 2:dim
-        for l = 1:(dim-1)
-            C = C + (m(:,:,k)*m(:,:,l)' + m(:,:,l)*m(:,:,k)')
+    A = (1/numberOfClasses)* sum(R,numberOfClasses);
+    B = (1/(numberOfClasses*(numberOfClasses-1)));
+    for k = 2:numberOfClasses
+        for l = 1:(numberOfClasses-1)
+            C = C + (m(:,:,k)*m(:,:,l)' + m(:,:,l)*m(:,:,k)');
         end    
     end
     
@@ -70,9 +68,8 @@ if methode == 2    % Squared distance one to all
 
     c = [];
     
-    for(i = 1:dim)
+    for(i = 1:numberOfClasses)
     c(:,:,i) = A * input(:,:,i); 
-    hold on;
     end
  
     merkmale = c;   % return
@@ -81,13 +78,13 @@ end
 if methode == 3    % Squared distance in one class
     f_gesamt = input;
     
-    dim = size(input,3);
+    numberOfClasses = size(input,3);
     
-    N = zeros(1,dim);
-    m = zeros(2,1,dim);
+    N = zeros(1,numberOfClasses);
+    m = zeros(2,1,numberOfClasses);
     
-    R = zeros(2,2,dim);
-    for i = 1:dim
+    R = zeros(2,2,numberOfClasses);
+    for i = 1:numberOfClasses
         N(i)= length(f_gesamt(:,:,i));
         m(:,i) = sum(f_gesamt(:,:,i),2)/N(i);
         R(:,:,i) = zeros(2,2);
@@ -95,7 +92,7 @@ if methode == 3    % Squared distance in one class
 
     for i = 1:length(N)
         for k = 1:N(i)
-            f_temp = f_gesamt(:,:,i)
+            f_temp = f_gesamt(:,:,i);
             f_new = f_temp(:,k) * f_temp(:,k)';
             R(:,:,i) = R(:,:,i) + f_new;
         end
@@ -104,20 +101,19 @@ if methode == 3    % Squared distance in one class
     
     Q = zeros(2,2);
     
-    for k = 1:dim
+    for k = 1:numberOfClasses
         Q = Q + (R(:,:,k) + m(:,k)*m(:,k)');
     end
     
-    Q = Q/dim;
+    Q = Q/numberOfClasses;
         
-    [V,E] = eigs(Q,1);
+    [V,E] = eigs(Q,1,'sm');
     A = V(:,1)';
 
     c = [];
     
-    for(i = 1:dim)
+    for(i = 1:numberOfClasses)
     c(:,:,i) = A * input(:,:,i); 
-    hold on;
     end
  
     merkmale = c;   % return
