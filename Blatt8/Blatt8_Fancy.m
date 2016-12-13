@@ -1,5 +1,5 @@
 % Klasse 1
-f1 = [2,2;2.1,2.1;2.05,2.05;1.95,2.05;1.9,1.9]';
+f1 = [2,2;2.1,1.9;2.05,2.05;1.95,2.05;1.9,1.9]';
 % Klasse 2
 f2 = [4,6.5;3.8,6.1;4.2,5.9;4.1,6.3;4.1,6.0]';
 % Klasse 3
@@ -12,7 +12,7 @@ f(:,:,3) = f3;
 
 markers = ['o' 'x' '*'];
 colors = ['r' 'm' 'b'];
-
+A = [];
 %% Plot A1
 subplot(2,1,1);
 plot(f1(1,:),f1(2,:),markers(1), 'Color',colors(1));
@@ -26,7 +26,7 @@ xlim([-8,14]);
 ylim([0,7]);
 %axis equal;
 %% ---Aufgabe 2---%
-[c, A] = findeMerkmale(f,1);
+[c, A(:,1)] = findeMerkmale(f,1);
 subplot(2,1,2);
 for i = 1:size(f,3)
     plot(c(:,:,i), ones(1,length(c))*2,markers(i),'Color',colors(i));
@@ -36,9 +36,10 @@ for i = 1:size(f,3)
  title('be 2');
  
  subplot(2,1,1);
- plot(x+3, (A(2)/A(1))*x + 4);
+
+ plot(x+3, (A(2,1)/A(1,1))*x + 4);
  %% ---Aufgabe 3---%
- [c, A] = findeMerkmale(f,2);
+ [c, A(:,2)] = findeMerkmale(f,2);
 subplot(2,1,2);
 for i = 1:size(f,3)
     plot(c(:,:,i), ones(1,length(c))*3,markers(i),'Color',colors(i));
@@ -48,9 +49,9 @@ for i = 1:size(f,3)
  title('Aufgabe 3');
  
  subplot(2,1,1);
- plot(x + 3, (A(2)/A(1))*x + 4);
+ plot(x + 3, (A(2,2)/A(1,2))*x + 4);
  %% ---Aufgabe 4---%
- [c, A] = findeMerkmale(f,3);
+ [c, A(:,3)] = findeMerkmale(f,3);
 subplot(2,1,2);
 for i = 1:size(f,3)
     plot(c(:,:,i), ones(1,length(c))*4,markers(i),'Color',colors(i));
@@ -61,8 +62,8 @@ for i = 1:size(f,3)
  ylim([1.5, 4.5]);
  legend('c_1','c_2','c_3','Location','Southeast');
  
-  subplot(2,1,1);
- plot(x + 3, (A(2)/A(1))*x + 4);
+ subplot(2,1,1);
+ plot(x + 3, (A(2,3)/A(1,3))*x + 4);
  legend('f_1','f_2','f_3','A1','A2','A3','Location','Southeast');
 
  hold off;

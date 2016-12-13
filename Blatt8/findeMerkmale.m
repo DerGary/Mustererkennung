@@ -1,6 +1,6 @@
 function [merkmale, A] = findeMerkmale(input, methode)
 
-if methode == 1    % PCA, Squared distance all to
+if methode == 1    % PCA, Squared distance all to all
     f_gesamt = [];
     for i=1:size(input,3)
         f_gesamt = [f_gesamt input(:,:,i)];
@@ -14,9 +14,15 @@ if methode == 1    % PCA, Squared distance all to
     end
 
     R = R/N;
-    Q1 = R - m*m';
-    [V1,E1] = eigs(Q1,1);
-    A = V1(:,1)';
+    Q = R - m*m';
+    
+    %[V1,E1] = eigs(Q1,1);
+    %A = V1(:,1)';
+    [V, E] = eig(Q);
+    [E, Indizes] = sort(diag(E),'descend');
+    
+    A_temp = V(:,Indizes');
+    A = A_temp(:,1)';
     
     c = [];
     for(i = 1:size(input,3))
@@ -41,7 +47,7 @@ if methode == 2    % Squared distance one to all
         R(:,:,i) = zeros(2,2);
     end
 
-    for i = 1:length(N)
+    for i = 1:numberOfClasses
         for k = 1:N(i)
             f_temp = f_gesamt(:,:,i);
             f_new = f_temp(:,k) * f_temp(:,k)';
@@ -53,18 +59,23 @@ if methode == 2    % Squared distance one to all
     Q = zeros(2,2);
     C = zeros(2,2);
     
-    A = (1/numberOfClasses)* sum(R,numberOfClasses);
+    K = (1/numberOfClasses)* sum(R,numberOfClasses);
     B = (1/(numberOfClasses*(numberOfClasses-1)));
     for k = 2:numberOfClasses
-        for l = 1:(numberOfClasses-1)
+        for l = 1:(k-1)
             C = C + (m(:,:,k)*m(:,:,l)' + m(:,:,l)*m(:,:,k)');
         end    
     end
     
-    Q = A - B * C;
+    Q = K - B * C;
     
-    [V,E] = eigs(Q,1);
-    A = V(:,1)';
+    %[V,E] = eigs(Q,1);
+    %A = V(:,1)';
+    [V, E] = eig(Q);
+    [E, Indizes] = sort(diag(E),'descend');
+    
+    A_temp = V(:,Indizes');
+    A = A_temp(:,1)';
 
     c = [];
     
@@ -102,13 +113,19 @@ if methode == 3    % Squared distance in one class
     Q = zeros(2,2);
     
     for k = 1:numberOfClasses
-        Q = Q + (R(:,:,k) + m(:,k)*m(:,k)');
+        Q = Q + (R(:,:,k) - m(:,k)*m(:,k)');
     end
     
     Q = Q/numberOfClasses;
         
-    [V,E] = eigs(Q,1,'sm');
-    A = V(:,1)';
+    %[V,E] = eigs(Q,1,'sm');
+    %A = V(:,1)';
+    
+    [V, E] = eig(Q);
+    [E, Indizes] = sort(diag(E),'ascend');
+    
+    A_temp = V(:,Indizes');
+    A = A_temp(:,1)';
 
     c = [];
     
