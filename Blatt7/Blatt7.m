@@ -1,34 +1,45 @@
 H = hadamard(8);
+%H = (1/sqrt(8))*H;
 % Klasse \omega_1
-f_1_1 = [4,3,3,3,2,3,3,3]';
-f_2_1 = [3,3,2,3,3,2,3,3]';
+o1f1 = [4,3,3,3,2,3,3,3]';
+o1f2 = [3,3,2,3,3,2,3,3]';
 
 % Klasse \omega_2
-f_1_2 = [4,-3,-3,3,2,-3,-3,3]';
-f_2_2 = [3,-4,-3,2,2,-2,-4,2]';
+o2f1 = [4,-3,-3,3,2,-3,-3,3]';
+o2f2 = [3,-4,-3,2,2,-2,-4,2]';
 
 % Klasse \omega_3
-f_1_3 = [-4,-3,-3,3,-2,-3,-3,3]';
-f_2_3 = [-3,-3,-4,3,-3,-4,-2,3]';
+o3f1 = [-4,-3,-3,3,-2,-3,-3,3]';
+o3f2 = [-3,-3,-4,3,-3,-4,-2,3]';
 
-%% a
-c_1_1 = H*f_1_1;
-c_2_1 = H*f_2_1;
-c_1_2 = H*f_1_2;
-c_2_2 = H*f_2_2;
-c_1_3 = H*f_1_3;
-c_2_3 = H*f_2_3;
+% a
+% Klasse \omega_1
+o1c1 = H*o1f1;
+o1c2 = H*o1f2;
+
+% Klasse \omega_2
+o2c1 = H*o2f1;
+o2c2 = H*o2f2;
+
+% Klasse \omega_3
+o3c1 = H*o3f1;
+o3c2 = H*o3f2;
 
 %% b
 H2(1,:) = H(1,:);
 H2(2,:) = H(4,:);
 
-c_1_1 = H2*f_1_1;
-c_2_1 = H2*f_2_1;
-c_1_2 = H2*f_1_2;
-c_2_2 = H2*f_2_2;
-c_1_3 = H2*f_1_3;
-c_2_3 = H2*f_2_3;
+% Klasse \omega_1
+o1c1 = H2*o1f1;
+o1c2 = H2*o1f2;
+
+% Klasse \omega_2
+o2c1 = H2*o2f1;
+o2c2 = H2*o2f2;
+
+% Klasse \omega_3
+o3c1 = H2*o3f1;
+o3c2 = H2*o3f2;
 
 %% Aufgabe 2a
 
@@ -40,6 +51,7 @@ hold on;
 plot(f_2);
 plot(f_3);
 legend('f_1','f_2','f_3');
+legend('Location', 'southeast');
 hold off;
 
 %% 2b
@@ -56,16 +68,17 @@ predictions = 20;
 [a_2, error_2, prediction_2] = customLPC(f_2, n, predictions);
 [a_3, error_3, prediction_3] = customLPC(f_3, n, predictions);
 
-c_1 = [a_1; error_1]
-c_2 = [a_2; error_2]
-c_3 = [a_3; error_3]
+c_1 = [a_1; error_1];
+c_2 = [a_2; error_2];
+c_3 = [a_3; error_3];
 
 subplot(2,3,1);
 plot(prediction_1);
 hold on;
 plot(f_1);
 plot(prediction_1,'o');
-legend('estimates','f_1');
+legend('estimates','f_1', 'data points');
+legend('Location', 'southeast');
 hold off;
 
 subplot(2,3,2);
@@ -73,7 +86,8 @@ plot(prediction_2);
 hold on;
 plot(f_2);
 plot(prediction_2,'o');
-legend('estimates','f_2');
+legend('estimates','f_2','data points');
+legend('Location', 'southeast');
 hold off;
 
 subplot(2,3,3);
@@ -81,7 +95,8 @@ plot(prediction_3);
 hold on;
 plot(f_3);
 plot(prediction_3,'o');
-legend('estimates','f_3');
+legend('estimates','f_3','data points');
+legend('Location', 'southeast');
 hold off;
 
 % Aufgabe 2c
@@ -95,16 +110,17 @@ predictions = 20;
 [a_2, error_2, prediction_2] = customLPC(f_2, n, predictions);
 [a_3, error_3, prediction_3] = customLPC(f_3, n, predictions);
 
-c_1 = [a_1; error_1]
-c_2 = [a_2; error_2]
-c_3 = [a_3; error_3]
+c_1 = [a_1; error_1];
+c_2 = [a_2; error_2];
+c_3 = [a_3; error_3];
 
 subplot(2,3,4);
 plot(prediction_1);
 hold on;
 plot(f_1);
 plot(prediction_1,'o');
-legend('estimates','f_1');
+legend('estimates','f_1','data points');
+legend('Location', 'southeast');
 hold off;
 
 subplot(2,3,5);
@@ -112,7 +128,8 @@ plot(prediction_2);
 hold on;
 plot(f_2);
 plot(prediction_2,'o');
-legend('estimates','f_2');
+legend('estimates','f_2','data points');
+legend('Location', 'southeast');
 hold off;
 
 subplot(2,3,6);
@@ -120,5 +137,6 @@ plot(prediction_3);
 hold on;
 plot(f_3);
 plot(prediction_3,'o');
-legend('estimates','f_3');
+legend('estimates','f_3','data points');
+legend('Location', 'southeast');
 hold off;
