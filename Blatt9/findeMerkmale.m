@@ -7,26 +7,14 @@ if methode == 1    % PCA, Squared distance all to all
     end
     N = size(f_gesamt,2);
     m = sum(f_gesamt,2)/N;
-    %R = zeros(size(f_gesamt,1));
     R = (1/N)*(f_gesamt*f_gesamt');
-%     for i = 1:N
-%         f_new = f_gesamt(:,i) * f_gesamt(:,i)';
-%         R = R + f_new;
-%     end
-
-    R = R/N;
     Q = R - m*m';
     
-    [V1,E1] = eigs(Q,numberOfFeatures);
+    [V1,~] = eigs(Q,numberOfFeatures);
     A = V1';
-    %[V, E] = eig(Q);
-    %[E, Indizes] = sort(diag(E),'descend');
-    
-    %A_temp = V1(:,Indizes');
-    %A = A_temp(:,1)';
     
     c = [];
-    for(i = 1:size(input,3))
+    for i = 1:size(input,3)
         c(:,:,i) = A * input(:,:,i); 
     end
  
