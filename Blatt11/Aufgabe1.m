@@ -61,17 +61,19 @@ minValues = zeros(161, 161);
 [X,Y] = meshgrid(-15:0.25:25,-15:0.25:25);
 for i = 1:161
     for j = 1:161
-        distance = zeros(4, 5);
-        index = zeros(4,1);
-        minValues = zeros(4,1);
+        distance2 = zeros(4, 5);
         for k = 1:4
             for l = 1:5
-                distance(k, l) = LNorm(2, [X(i,j); Y(i,j)], o(:, k, l));
+                distance2(k, l) = LNorm(2, [X(i,j); Y(i,j)], o(:, l, k));
             end
         end
-        [minValues(i,j), index(i,j)] = min(min(distance(:,:)'));
+        [minValues(i,j), index(i,j)] = min(min(distance2(:,:)'));
     end
 end
-
-
-
+scatter(X(:), Y(:), 100, index(:), 's', 'fill');
+hold on;
+scatter(o1(1,:), o1(2,:), 100, 'red', 's', 'fill');
+scatter(o2(1,:), o2(2,:), 100, 'red', 's', 'fill');
+scatter(o3(1,:), o3(2,:), 100, 'red', 's', 'fill');
+scatter(o4(1,:), o4(2,:), 100, 'red', 's', 'fill');
+hold off;
