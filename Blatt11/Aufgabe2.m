@@ -58,7 +58,7 @@ end
 %% 
 
 procentRight = 1-(wrong/960)
-[~, index] = max(procentRight)
+[bestProcent, index] = max(procentRight)
 
 plot(1:n, procentRight);
 line([index index],get(gca,'YLim'),'Color',[1 0 0])
