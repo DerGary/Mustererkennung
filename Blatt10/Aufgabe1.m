@@ -25,6 +25,7 @@ F = F + mvnpdf([X(:), Y(:)], m3', S3);
 F = F + mvnpdf([X(:), Y(:)], m4', S4);
 F = reshape(F,length(x),length(y));
 
+figure
 surf(x, y, F, 'EdgeColor', 'None');
 shading interp
 hold on
@@ -62,4 +63,7 @@ F4 = reshape(mvnpdf([X(:), Y(:)], m4', S4),length(x), length(y));
 F = cat(3, F1, F2, F3, F4);
 [V, I] = max(F, [], 3);
 
+figure
 scatter(X(:), Y(:), 100, I(:), 's', 'fill');
+xlabel('c_1');
+ylabel('c_2');

@@ -24,6 +24,8 @@ E1 = p*p' / size(p, 2);
 E2 = p*d' / size(p, 2);
 A = inv(E1) * E2;
 
+error = (d-A'*p).^2;
+
 %% d)
 c = [
      1  1  1  1
@@ -33,7 +35,7 @@ c = [
 
 d_c = A' * c;
 
-[v, i] = min(abs(1 - d_c)); i
+[v, i] = max(d_c); i
 
 %% e)
 mid = [4.5, 4.5];

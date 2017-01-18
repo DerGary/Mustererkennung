@@ -24,6 +24,8 @@ E1 = p*p' / size(p, 2);
 E2 = p*d' / size(p, 2);
 A = inv(E1) * E2;
 
+error = (d-A'*p).^2;
+
 %% d)
 c = [
     -2  6  5 -5
